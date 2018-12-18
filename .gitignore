@@ -1,0 +1,4 @@
+#ignore .class files.
+*.class
+tileGameNotes.txt
+
