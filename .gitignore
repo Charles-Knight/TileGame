@@ -1,4 +1,5 @@
 #ignore .class files.
 *.class
+*.swp
 tileGameNotes.txt
 
