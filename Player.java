@@ -31,7 +31,7 @@ public class Player {
   public void addPoints(int points) { this.score = this.score + points; }
   public String getName() { return this.name; }
   public int getCurrentScore() { return this.score; }
-  public int getPassCounter() { return this.passCounter; }
+  public boolean passedThrice() { return this.passCounter >= 3; }
   public void passed() { this.passCounter++; }
   public void resetPassCounter() { this.passCounter = 0; }
 
