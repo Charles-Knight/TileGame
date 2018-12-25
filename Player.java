@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class Player {
   private static int MAX_SIZE = 7; // Max size of tiles list.
   private String name;
+  private int passCounter;
   private int score;
   private LinkedList<Tile> tiles;
 
@@ -23,20 +24,16 @@ public class Player {
   public Player(String name) {
     this.name = name;
     this.score = 0;
+    this.passCounter = 0;
     this.tiles = new LinkedList<Tile>();
   }
 
-  public void addPoints(int points) {
-    this.score = this.score + points;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public int getCurrentScore() {
-    return this.score;
-  }
+  public void addPoints(int points) { this.score = this.score + points; }
+  public String getName() { return this.name; }
+  public int getCurrentScore() { return this.score; }
+  public int getPassCounter() { return this.passCounter; }
+  public void passed() { this.passCounter++; }
+  public void resetPassCounter() { this.passCounter = 0; }
 
   /*
   * Adds tile to players tile list. Returns boolean to indicate success/failure
