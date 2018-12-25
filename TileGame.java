@@ -13,16 +13,29 @@ import java.util.Scanner;
 public class TileGame {
 
   public static void main(String[] args) {
-    Scanner keyboard = new Scanner(System.in);
+    /* Game setup. Create tile bag, player list and board.
+     *
+     */
     TileBag tileBag = new TileBag();
     Player[] playerList = playerSetup(tileBag);
     Board board = new Board();
 
+    /* Start game: Print starting board, start player turns.
+     *
+     */
     board.print();
     int currentPlayer = 0;
     System.out.println("Player: " + playerList[currentPlayer].getName());
 
-    keyboard.close();
+    while(!gameOver(playerList))
+    {
+      playerTurn(playerList[currentPlayer], board, tileBag);
+      if(currentPlayer < playerList.length - 1)
+        currentPlayer ++;
+      else
+        currentPlayer = 0;
+    }
+
     System.out.println("GoodBye.");
 
   }
@@ -60,17 +73,75 @@ public class TileGame {
     return playerList;
   }
 
-  public static void playerTurn(Player p) {
+  /* playerTurn
+   * Goes through process of turn for given player
+   * Player should have option place tiles, swap tiles, or pass turn
+   * Players tile rack should be repleneished (if possible) at end
+   * of turn.
+   */
+  public static void playerTurn(Player p, Board b, TileBag tb) {
+    Scanner keyboard = new Scanner(System.in);
+
+    //Show current player their tile rack.
+
+    //Ask player what they would like to do: Place Swap or Pass
+    System.out.print("1)Play word, 2) Swap, 3) Pass :");
+    //int choice = keyboard.nextInt();
+    int choice = 3;
+    System.out.println(p.getName() + " chose " + choice);
+
+    switch(choice) {
+      case 1:
+        placeWord(p, b);
+        p.resetPassCounter();
+        break;
+      case 2:
+        swapTiles(p, tb);
+        p.resetPassCounter();
+        break;
+      case 3:
+        p.passed();
+        System.out.println("Player passed turn.");
+        break;
+    }
+
+    keyboard.close();
 
   } //End PlayerTurn
 
-  /*
-  *  Swaps tiles from player rack with tiles from tile bag.
-  */
-  public static void swapTiles() {
+  /* placeWord: Player places tiles on board.
+   *
+   */
+   public static void placeWord(Player p, Board b) {
+
+   }
+
+  /* swapTile: Swaps tile between player and TileBag.
+   * Player should draw new set aside tiles to return,
+   * draw new tiles, and then return old tiles.
+   */
+  public static void swapTiles(Player p, TileBag tb) {
 
   } // End swapTile
 
+  public static boolean gameOver(Player[] pl){
+
+    boolean allTilesPlaced = true;
+    boolean allPlayersPassed = true;
+    //Check if ALL players have passed 3 times,
+
+    for(int i = 0; i < pl.length; i++){
+      if (pl[i].hasTiles())
+        allTilesPlaced = false;
+      if (!pl[i].passedThrice())
+        allPlayersPassed = false;
+    }
+    return allTilesPlaced || allPlayersPassed;
+  }
+
+  /* playerDeets: Lists number of players and their current scores.
+   *
+   */
   public static void playerDeets(Player[] pl) {
     System.out.println("There are " + pl.length + " players");
     System.out.println("--Current Scores--");
@@ -79,6 +150,9 @@ public class TileGame {
     }
   }
 
+  /* bagDeets: Prints the number of tiles left in TileBag.
+   *
+   */
   public static void bagDeets(TileBag t) {
     System.out.println("Number of tiles: " + t.size());
     System.out.println(t + "\n");
