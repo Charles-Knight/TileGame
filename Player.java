@@ -28,15 +28,12 @@ public class Player {
     this.tiles = new LinkedList<Tile>();
   }
 
-
   public String getName() { return this.name; }
   public boolean hasTiles() { return this.tiles.size() > 0; }
-
   public void addPoints(int points) { this.score = this.score + points; }
   public int getCurrentScore() { return this.score; }
-
   public boolean passedThrice() { return this.passCounter >= 3; }
-  public void passed() { this.passCounter++; }
+  public void passed() { this.passCounter++ ; }
   public void resetPassCounter() { this.passCounter = 0; }
 
   /*
@@ -82,5 +79,4 @@ public class Player {
   public Iterator<Tile> iterator() {
     return this.tiles.iterator();
   }
-
 } //End Player class
