@@ -11,24 +11,19 @@
 import java.util.Scanner;
 
 public class TileGame {
-
   public static void main(String[] args) {
-    /* Game setup. Create tile bag, player list and board.
-     *
-     */
+    /* Game setup. Create tile bag, player list and board. */
     TileBag tileBag = new TileBag();
     Player[] playerList = playerSetup(tileBag);
     Board board = new Board();
 
-    /* Start game: Print starting board, start player turns.
-     *
-     */
+    /* Start game: Print starting board, start player turns. */
     board.print();
     int currentPlayer = 0;
     System.out.println("Player: " + playerList[currentPlayer].getName());
 
-    while(!gameOver(playerList))
-    {
+    /* Player turns */
+    while(!gameOver(playerList)) {
       playerTurn(playerList[currentPlayer], board, tileBag);
       if(currentPlayer < playerList.length - 1)
         currentPlayer ++;
@@ -37,8 +32,7 @@ public class TileGame {
     }
 
     System.out.println("GoodBye.");
-
-  }
+  } // End main
 
   /* playerSetup
   *  creates playerList of size entered by user and then populates
@@ -51,14 +45,14 @@ public class TileGame {
 
     /* Get number of players and create player list */
     System.out.print("Enter number of players: ");
-    int numPlayers = keyboard.nextInt();
+    int numPlayers = Integer.parseInt(keyboard.nextLine());
     ;
     Player[] playerList = new Player[numPlayers];
 
     /* Create players and assign names */
     for (int i = 0; i < numPlayers; i++) {
       System.out.print("Player " + i + " name: ");
-      String name = keyboard.next();
+      String name = keyboard.nextLine();
       playerList[i] = new Player(name);
     }
 
@@ -69,7 +63,7 @@ public class TileGame {
       }
     }
 
-    keyboard.close();
+    //keyboard.close();
     return playerList;
   }
 
@@ -85,9 +79,9 @@ public class TileGame {
     //Show current player their tile rack.
 
     //Ask player what they would like to do: Place Swap or Pass
-    System.out.print("1)Play word, 2) Swap, 3) Pass :");
-    //int choice = keyboard.nextInt();
-    int choice = 3;
+    System.out.print("1)Play word, 2) Swap, 3) Pass : ");
+    int choice = Integer.parseInt(keyboard.nextLine());
+
     System.out.println(p.getName() + " chose " + choice);
 
     switch(choice) {
@@ -105,7 +99,7 @@ public class TileGame {
         break;
     }
 
-    keyboard.close();
+    //keyboard.close();
 
   } //End PlayerTurn
 
