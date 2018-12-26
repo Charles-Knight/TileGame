@@ -9,6 +9,7 @@
 *  tiles or no further words can be made.
 */
 import java.util.Scanner;
+import java.util.Iterator;
 
 public class TileGame {
   public static void main(String[] args) {
@@ -16,14 +17,12 @@ public class TileGame {
     TileBag tileBag = new TileBag();
     Player[] playerList = playerSetup(tileBag);
     Board board = new Board();
-
-    /* Start game: Print starting board, start player turns. */
-    board.print();
     int currentPlayer = 0;
-    System.out.println("Player: " + playerList[currentPlayer].getName());
 
     /* Player turns */
     while(!gameOver(playerList)) {
+      board.print();
+
       playerTurn(playerList[currentPlayer], board, tileBag);
       if(currentPlayer < playerList.length - 1)
         currentPlayer ++;
@@ -63,7 +62,6 @@ public class TileGame {
       }
     }
 
-    //keyboard.close();
     return playerList;
   }
 
@@ -76,12 +74,16 @@ public class TileGame {
   public static void playerTurn(Player p, Board b, TileBag tb) {
     Scanner keyboard = new Scanner(System.in);
 
-    //Show current player their tile rack.
+    //Show current player and their tile rack.
+    System.out.print("Player: " + p.getName() + " ");
+    Iterator<Tile> tiles = p.iterator();
+    while(tiles.hasNext())
+      System.out.print(tiles.next() + " ");
+    System.out.println();
 
     //Ask player what they would like to do: Place Swap or Pass
     System.out.print("1)Play word, 2) Swap, 3) Pass : ");
     int choice = Integer.parseInt(keyboard.nextLine());
-
     System.out.println(p.getName() + " chose " + choice);
 
     switch(choice) {
@@ -98,8 +100,6 @@ public class TileGame {
         System.out.println("Player passed turn.");
         break;
     }
-
-    //keyboard.close();
 
   } //End PlayerTurn
 
