@@ -94,7 +94,7 @@ public class Tile {
   *  Return: string representation of Tile object.
   */
   public String toString() {
-    return letter + ": " + this.getValue();
+    return letter + ":" + this.getValue();
   }
 
   // Main function for testing Tile class.
