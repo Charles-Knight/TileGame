@@ -107,6 +107,53 @@ public class TileGame {
    *
    */
    public static void placeWord(Player p, Board b) {
+     Scanner keyboard = new Scanner(System.in);
+     // You gotta find a way to do this without preselecting a value;
+     char choice = 'a';
+     int x,y;
+     Tile selected = null;
+
+     /*
+----->  Come back to here and add input validation, after you know that this at
+        least works. Also maybe streamline it so that all input can be done in
+        a single line.
+
+        This method needs a lot of fucking work.
+     */
+
+     // Need to make it so that when selecting 0 or no more tiles, we just move
+     // move on instead of then also asking user to input coords...
+     // Maybe just have a y/n prompt for more tiles?
+     while(choice != '0') {
+       // Add something to check that chosen character is in players tile rack!!!
+       System.out.println();
+       System.out.print("Choose a tile to place or 0 to stop placing tiles: ");
+       choice = keyboard.next().charAt(0);
+
+       // Add something to make sure that cooridinates are in the bounds of the board.
+       // Also find a way to just enter an ordered pair.
+       // Also make sure that tile isn't already occupied.
+       System.out.println();
+       System.out.print("Please enter the x coordinate where you would like to place the tile: ");
+       x = keyboard.nextInt();
+
+       System.out.println();
+       System.out.print("Please enter the y coordinate where you would like to place the tile: ");
+       y = keyboard.nextInt();
+
+       if(choice != 0){
+         Iterator<Tile> tiles = p.iterator();
+         while(tiles.hasNext()){
+           selected = tiles.next();
+           if (selected.getLetter() == choice){
+             tiles.remove();
+             break;
+           }
+         }
+         b.setTile(x,y,selected);
+
+       }
+     }
 
    }
 
